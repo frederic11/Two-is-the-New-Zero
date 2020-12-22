@@ -7,6 +7,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.ContactsContract
 import com.deepakkumardk.kontactpickerlib.util.log
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -42,7 +43,7 @@ class ContactsService(
         var contactInfo: HashMap<Long, String> = hashMapOf<Long, String>()
         if (cursor != null) {
             // Get contact count that has same contactId, generally it should be one.
-            val queryResultCount: Int = cursor.getCount()
+            val queryResultCount: Int = cursor.count
             // This check is used to avoid cursor index out of bounds exception. android.database.CursorIndexOutOfBoundsException
             if (queryResultCount > 0) {
                 // Move to the first row in the result cursor.
@@ -70,85 +71,48 @@ class ContactsService(
      * Update contact phone number by contactId.
      * Return update contact number, commonly there should has one contact be updated.
      */
-    fun updateContactPhoneByName(
-        contactId: String,
-        phoneNumber: String
-    ): Int {
+    fun updateContactPhoneById(
+        contactInfo: HashMap<Long, String>
+    ): Boolean {
         var ret = 0
         val contentResolver: ContentResolver = context.contentResolver
 
         // Get raw contact id by display name.
         //val rawContactId = getRawContactIdByContactId(contactId, phoneNumber)
 
-        val rawContactId = Long.MIN_VALUE
-
-        // Update data table phone number use contact raw contact id.
-        ret = if (rawContactId > -1) {
-            // Update mobile phone number.
-            updatePhoneNumber(
-                contentResolver,
-                rawContactId,
-                ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE,
-                "66666666666666"
-            )
-
-            // Update work mobile phone number.
-            updatePhoneNumber(
-                contentResolver,
-                rawContactId,
-                ContactsContract.CommonDataKinds.Phone.TYPE_WORK_MOBILE,
-                "8888888888888888"
-            )
-
-            // Update home phone number.
-            updatePhoneNumber(
-                contentResolver,
-                rawContactId,
-                ContactsContract.CommonDataKinds.Phone.TYPE_HOME,
-                "99999999999999999"
-            )
-            1
-        } else {
-            0
+        for(contact in contactInfo){
+            return try{
+                updatePhoneNumber(contentResolver, contact.key, contact.value)
+                true
+            } catch (exception: Exception){
+                log(exception.toString())
+                false
+            }
         }
-        return ret
+        return false
     }
-
 
     /* Update phone number with raw contact id and phone type.*/
     private fun updatePhoneNumber(
         contentResolver: ContentResolver,
         rawContactId: Long,
-        phoneType: Int,
         newPhoneNumber: String
     ) {
         // Create content values object.
         val contentValues = ContentValues()
 
         // Put new phone number value.
-        contentValues.put(ContactsContract.CommonDataKinds.Phone.NUMBER, newPhoneNumber)
+        //contentValues.put(ContactsContract.CommonDataKinds.Phone.NUMBER, newPhoneNumber)
+        contentValues.put(ContactsContract.Data.DATA1, "+96176888888")
+        contentValues.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
 
         // Create query condition, query with the raw contact id.
         val whereClauseBuf = StringBuffer()
 
         // Specify the update contact id.
-        whereClauseBuf.append(ContactsContract.Data.RAW_CONTACT_ID)
-        whereClauseBuf.append("=")
-        whereClauseBuf.append(rawContactId)
-
-        // Specify the row data mimetype to phone mimetype( vnd.android.cursor.item/phone_v2 )
-        whereClauseBuf.append(" and ")
-        whereClauseBuf.append(ContactsContract.Data.MIMETYPE)
-        whereClauseBuf.append(" = '")
-        val mimetype = ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE
-        whereClauseBuf.append(mimetype)
-        whereClauseBuf.append("'")
-
-        // Specify phone type.
-        whereClauseBuf.append(" and ")
-        whereClauseBuf.append(ContactsContract.CommonDataKinds.Phone.TYPE)
+        whereClauseBuf.append(ContactsContract.Data._ID)
         whereClauseBuf.append(" = ")
-        whereClauseBuf.append(phoneType)
+        whereClauseBuf.append(rawContactId)
 
         // Update phone info through Data uri.Otherwise it may throw java.lang.UnsupportedOperationException.
         val dataUri = ContactsContract.Data.CONTENT_URI
@@ -156,5 +120,7 @@ class ContactsService(
         // Get update data count.
         val updateCount =
             contentResolver.update(dataUri, contentValues, whereClauseBuf.toString(), null)
+
+        log("Update Count: $updateCount")
     }
 }
