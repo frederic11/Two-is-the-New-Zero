@@ -138,7 +138,7 @@ class HomeFragment : Fragment() {
                     log(
                         "This is the log: myContactId => $contactInfo"
                     )
-                    contactsService.updateContactPhoneById(contactInfo)
+                    contactsService.updateContactPhoneById(contactInfo, false)
                 }
             } else {
                 Toast.makeText(context, "No Contacts were Selected", Toast.LENGTH_SHORT).show()

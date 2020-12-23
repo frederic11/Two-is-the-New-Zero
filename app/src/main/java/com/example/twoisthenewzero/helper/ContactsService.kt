@@ -8,7 +8,6 @@ import android.net.Uri
 import android.provider.ContactsContract
 import com.deepakkumardk.kontactpickerlib.util.log
 import java.lang.Exception
-import java.util.*
 import kotlin.collections.HashMap
 
 
@@ -30,7 +29,9 @@ class ContactsService(
 
         // Create where condition clause.
         val whereClause =
-            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " IN (" + conditionalInStatement.removeSuffix(",") + ")"
+            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " IN (" + conditionalInStatement.removeSuffix(
+                ","
+            ) + ")"
         //"and " + ContactsContract.CommonDataKinds.Phone.DATA + " = '" + phoneNumber + "'"
 
         // Query raw contact id through RawContacts uri.
@@ -52,13 +53,13 @@ class ContactsService(
                 // Get raw_contact_id.
 
                 if (cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER)) != null)
-                contactInfo[cursor.getLong(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID))] =
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER))
+                    contactInfo[cursor.getLong(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID))] =
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER))
 
                 while (cursor.moveToNext()) {
                     if (cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER)) != null)
-                    contactInfo[cursor.getLong(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID))] =
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER))
+                        contactInfo[cursor.getLong(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID))] =
+                            cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER))
 
                 }
             }
@@ -72,39 +73,49 @@ class ContactsService(
      * Return update contact number, commonly there should has one contact be updated.
      */
     fun updateContactPhoneById(
-        contactInfo: HashMap<Long, String>
-    ): Boolean {
+        contactInfo: HashMap<Long, String>,
+        isRevertToZero: Boolean
+    ) {
         var ret = 0
         val contentResolver: ContentResolver = context.contentResolver
 
-        // Get raw contact id by display name.
-        //val rawContactId = getRawContactIdByContactId(contactId, phoneNumber)
-
-        for(contact in contactInfo){
-            return try{
-                updatePhoneNumber(contentResolver, contact.key, contact.value)
-                true
-            } catch (exception: Exception){
+        for (contact in contactInfo) {
+            try {
+                updatePhoneNumber(contentResolver, contact.key, contact.value, isRevertToZero)
+            } catch (exception: Exception) {
                 log(exception.toString())
-                false
             }
         }
-        return false
     }
 
     /* Update phone number with raw contact id and phone type.*/
     private fun updatePhoneNumber(
         contentResolver: ContentResolver,
         rawContactId: Long,
-        newPhoneNumber: String
+        oldPhoneNumber: String,
+        isRevertToZero: Boolean
     ) {
+        var newPhoneNumber =
+            if (!isRevertToZero && oldPhoneNumber.length == 11 && oldPhoneNumber.startsWith("+961") && !oldPhoneNumber.startsWith("+9613")) {
+                oldPhoneNumber.replace("+961", "+9612")
+            } else if (isRevertToZero && oldPhoneNumber.length == 12 && oldPhoneNumber.startsWith("+9612")) {
+                oldPhoneNumber.replace("+9612", "+961")
+            } else {
+                log("Phone Number doesn't need transforming: $oldPhoneNumber")
+                return
+            }
+
         // Create content values object.
         val contentValues = ContentValues()
 
         // Put new phone number value.
         //contentValues.put(ContactsContract.CommonDataKinds.Phone.NUMBER, newPhoneNumber)
-        contentValues.put(ContactsContract.Data.DATA1, "+96176888888")
-        contentValues.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+        contentValues.put(ContactsContract.Data.DATA1, newPhoneNumber)
+        contentValues.put(
+            ContactsContract.Data.MIMETYPE,
+            ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE
+        )
+        contentValues.put(ContactsContract.Data.DATA4, newPhoneNumber)
 
         // Create query condition, query with the raw contact id.
         val whereClauseBuf = StringBuffer()
