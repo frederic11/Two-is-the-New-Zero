@@ -76,7 +76,6 @@ class ContactsService(
         contactInfo: HashMap<Long, String>,
         isRevertToZero: Boolean
     ) {
-        var ret = 0
         val contentResolver: ContentResolver = context.contentResolver
 
         for (contact in contactInfo) {
