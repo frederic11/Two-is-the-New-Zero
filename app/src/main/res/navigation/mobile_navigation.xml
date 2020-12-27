@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="com.example.twoisthenewzero.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_confirmationFragment"
+            app:destination="@id/confirmationFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
@@ -22,4 +26,27 @@
         android:name="com.example.twoisthenewzero.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/confirmationFragment"
+        android:name="com.example.twoisthenewzero.ui.confirmation.ConfirmationFragment"
+        android:label="Review"
+        tools:layout="@layout/confirmation_fragment">
+        <argument
+            android:name="listOfSelectedContacts"
+            app:argType="com.deepakkumardk.kontactpickerlib.model.MyContacts[]" />
+        <argument
+            android:name="isRevertFormat"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_confirmationFragment_to_successFragment"
+            app:destination="@id/successFragment"
+            app:popUpTo="@id/nav_home"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/successFragment"
+        android:name="com.example.twoisthenewzero.ui.success.SuccessFragment"
+        android:label="Success"
+        tools:layout="@layout/fragment_success" />
 </navigation>
