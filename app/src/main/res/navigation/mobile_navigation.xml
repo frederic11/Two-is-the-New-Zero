@@ -43,10 +43,20 @@
             app:destination="@id/successFragment"
             app:popUpTo="@id/nav_home"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_confirmationFragment_to_failureFragment"
+            app:destination="@id/failureFragment"
+            app:popUpTo="@id/nav_home"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/successFragment"
         android:name="com.example.twoisthenewzero.ui.success.SuccessFragment"
         android:label="Success"
         tools:layout="@layout/fragment_success" />
+    <fragment
+        android:id="@+id/failureFragment"
+        android:name="com.example.twoisthenewzero.ui.failure.FailureFragment"
+        android:label="Error"
+        tools:layout="@layout/fragment_failure" />
 </navigation>

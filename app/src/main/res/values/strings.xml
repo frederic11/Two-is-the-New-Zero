@@ -12,4 +12,18 @@
     <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_option_home">What Would you Like to do?</string>
+    <string name="choose_specific_contacts_to_migrate">Choose Specific Contacts to Migrate to the New Format.\nFor Example, Selected Phone Numbers will be migrated from 01-XXX XXX to 21-XXX XXX.</string>
+    <string name="migrate_all_contacts">Migrate All Contacts to the New Format.\nFor Example, All Phone Numbers will be migrated from 01-XXX XXX to 21-XXX XXX.</string>
+    <string name="choose_specific_contacts_to_revert">Choose Specific Contacts to Revert back to the Old Format.\nFor Example, Selected Phone Numbers will be reverted from 21-XXX XXX to 01-XXX XXX.</string>
+    <string name="revert_all_contacts_to_the_old_format">Revert All Contacts to the Old Format.\nFor Example, All Phone Numbers will be reverted from 21-XXX XXX to 01-XXX XXX.</string>
+    <string name="move_to_the_next_step_of_the_flow">Move to the Next Step of the Flow</string>
+    <string name="next">Next</string>
+    <string name="you_have_selected">You have Selected:</string>
+    <string name="warning">WARNING!</string>
+    <string name="warning_description_to_new_format">Selected contacts will be migrated to the new format.\nFor Example, 01-XXX XXX will be migrated to 21-XXX XXX.</string>
+    <string name="warning_description_to_old_format">Selected contacts will be reverted to the old format.\nFor Example, 21-XXX XXX will be reverted to 01-XXX XXX.</string>
+    <string name="migration_in_progress">Migration in Progress…</string>
+    <string name="transform_contacts_to_selected_format">Transform Contacts to Selected Format</string>
+    <string name="finish">Finish</string>
 </resources>

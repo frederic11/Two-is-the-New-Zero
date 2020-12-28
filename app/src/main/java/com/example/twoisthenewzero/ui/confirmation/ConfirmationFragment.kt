@@ -1,21 +1,21 @@
 package com.example.twoisthenewzero.ui.confirmation
 
-import androidx.lifecycle.ViewModelProvider
+import android.app.ActionBar
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.deepakkumardk.kontactpickerlib.util.hide
 import com.deepakkumardk.kontactpickerlib.util.log
+import com.deepakkumardk.kontactpickerlib.util.show
 import com.example.twoisthenewzero.R
 import com.example.twoisthenewzero.databinding.ConfirmationFragmentBinding
-import com.example.twoisthenewzero.databinding.FragmentHomeBinding
-import com.example.twoisthenewzero.helper.ContactsService
-import com.example.twoisthenewzero.ui.home.HomeFragmentDirections
-import java.util.concurrent.Executor
 
 class ConfirmationFragment : Fragment() {
 
@@ -38,65 +38,74 @@ class ConfirmationFragment : Fragment() {
     ): View? {
         _binding = ConfirmationFragmentBinding.inflate(inflater, container, false)
         _binding!!.successExtendedFab.setOnClickListener {
-            migrateContacts()
+            try{
+                showLoadingUI()
+                viewModel.migrateContacts()
+            }
+            catch (ex: Exception){
+                hideLoadingUI()
+                val action =
+                    ConfirmationFragmentDirections.actionConfirmationFragmentToFailureFragment()
+                findNavController().navigate(action)
+            }
         }
         return return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ConfirmationViewModel::class.java)
-        // TODO: Use the ViewModel
-
-        val listOfSelectedContacts = args.listOfSelectedContacts
-
-        // Handle this list
-        if (listOfSelectedContacts.any()) {
-            _binding!!.numberOfSelectedContactsText.text = listOfSelectedContacts.size.toString()
-
-            if (listOfSelectedContacts.size > 1) {
-                _binding!!.contactsText.text = "Contacts"
-            } else {
-                _binding!!.contactsText.text = "Contact"
-            }
-        } else {
-            Toast.makeText(context, "No Contacts were Selected", Toast.LENGTH_SHORT).show()
-        }
-        log("confirmation fragment contact List => $listOfSelectedContacts")
+    fun showLoadingUI(){
+        _binding!!.mainView.hide()
+        _binding!!.successExtendedFab.hide()
+        _binding!!.animationGroup.show()
     }
 
-    private fun migrateContacts() {
-        val listOfSelectedContacts = args.listOfSelectedContacts
-        val isRevertFormat = args.isRevertFormat
+    fun hideLoadingUI(){
+        _binding!!.mainView.show()
+        _binding!!.successExtendedFab.show()
+        _binding!!.animationGroup.hide()
+    }
 
-        // Handle this list
-        if (listOfSelectedContacts.any()) {
-            var myContext = context;
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val viewModelFactory = ConfirmationViewModelFactory(args.listOfSelectedContacts, args.isRevertFormat, requireNotNull(this.activity).application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ConfirmationViewModel::class.java)
+        // TODO: Use the ViewModel
 
-            val contactIds = mutableListOf<String>()
-            for (contact in listOfSelectedContacts) {
-                val contactIdImmutable = contact.contactId
-                if (contactIdImmutable != null) {
-                    contactIds += contactIdImmutable
-                }
-            }
-
-            if (myContext != null) {
-                val contactsService = ContactsService(myContext)
-                val contactInfo = contactsService.getRawContactIdByContactId(
-                    contactIds
-                )
-                log(
-                    "This is the log: myContactId => $contactInfo"
-                )
-                contactsService.updateContactPhoneById(contactInfo, isRevertFormat)
+        viewModel.isWorkDone.observe(viewLifecycleOwner, Observer {
+            if(it){
 
                 val action =
                     ConfirmationFragmentDirections.actionConfirmationFragmentToSuccessFragment()
                 findNavController().navigate(action)
             }
+        })
+
+        viewModel.isError.observe(viewLifecycleOwner, Observer {
+            if(it){
+                val action =
+                    ConfirmationFragmentDirections.actionConfirmationFragmentToFailureFragment()
+                findNavController().navigate(action)
+            }
+        })
+
+        // Handle this list
+        if (viewModel.mListOfSelectedContacts.any()) {
+            _binding!!.numberOfSelectedContactsText.text = viewModel.mListOfSelectedContacts.size.toString()
+            if (viewModel.mListOfSelectedContacts.size > 1) {
+                _binding!!.contactsText.text = "Contacts"
+            } else {
+                _binding!!.contactsText.text = "Contact"
+            }
+
+            if (args.isRevertFormat){
+                binding!!.infoText.text = getString(R.string.warning_description_to_old_format)
+            } else {
+                binding!!.infoText.text = getString(R.string.warning_description_to_new_format)
+            }
+
         } else {
             Toast.makeText(context, "No Contacts were Selected", Toast.LENGTH_SHORT).show()
         }
     }
+
+
 }

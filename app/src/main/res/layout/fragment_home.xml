@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,7 +17,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
-            android:text="Choose an Option:"
+            android:fontFamily="@font/roboto"
+            android:text="@string/choose_option_home"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,29 +37,68 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/darker_gray"/>
+
             <RadioButton
                 android:id="@+id/chooseSpecificContactRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choose Specific Contacts to Migrate to the New Format" />
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/choose_specific_contacts_to_migrate" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/darker_gray"/>
 
             <RadioButton
                 android:id="@+id/selectAllContactRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Migrate All Contacts to the New Format" />
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/migrate_all_contacts" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/darker_gray"/>
 
             <RadioButton
                 android:id="@+id/chooseSpecificContactToRevertRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choose Specific Contacts to Revert back to the Old Format" />
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/choose_specific_contacts_to_revert" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/darker_gray"/>
 
             <RadioButton
                 android:id="@+id/selectAllContactToRevertRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Revert All Contacts to the Old Format" />
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/revert_all_contacts_to_the_old_format" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/darker_gray"/>
         </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -68,13 +107,13 @@
         android:id="@+id/home_extended_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-        android:contentDescription="Next"
-        android:text="Next"
-        app:icon="@drawable/ic_baseline_navigate_next_24"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/move_to_the_next_step_of_the_flow"
+        android:text="@string/next"
+        app:icon="@drawable/ic_baseline_navigate_next_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

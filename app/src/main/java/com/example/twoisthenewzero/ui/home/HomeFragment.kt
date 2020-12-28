@@ -30,6 +30,7 @@ class HomeFragment : Fragment() {
     private var isRevertFormat = false
 
     private var _binding: FragmentHomeBinding? = null
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -67,7 +68,8 @@ class HomeFragment : Fragment() {
                     view?.let { it1 ->
                         Snackbar.make(
                             it1, "Please Select an Option",
-                            Snackbar.LENGTH_SHORT).show()
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -79,9 +81,17 @@ class HomeFragment : Fragment() {
                     Manifest.permission.WRITE_CONTACTS
                 )
             } !=
+            PackageManager.PERMISSION_GRANTED
+            || context?.let {
+                ContextCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.READ_CONTACTS
+                )
+            } !=
             PackageManager.PERMISSION_GRANTED) {
             requestPermissions(
-                arrayOf(Manifest.permission.WRITE_CONTACTS), writeContactPermissionCode
+                arrayOf(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS),
+                writeContactPermissionCode
             )
         }
 
@@ -90,10 +100,11 @@ class HomeFragment : Fragment() {
 
     fun startContactPickerActivity() {
         val item = KontactPickerItem().apply {
-            imageMode = ImageMode.TextMode                      //Default is None
+            imageMode = ImageMode.UserImageMode                      //Default is None
             selectionTickView = SelectionTickView.SmallView     //Default is SmallView
             selectionMode =
                 SelectionMode.Multiple               //Default is SelectionMode.Multiple
+            themeResId = R.style.Theme_TwoIsTheNewZero
         }
         KontactPicker().startPickerForResult(this, item, selectPhoneNumber)  //RequestCode
     }
@@ -103,29 +114,7 @@ class HomeFragment : Fragment() {
             //Handle the contactList : MutableList<MyContacts>
             // Handle this list
             if (it.any()) {
-                var myContext = context;
-                Toast.makeText(
-                    myContext,
-                    "You Selected: " + it.size + " Contacts",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                var contactIds = listOf<String>()
-                for (contact in it) {
-                    val contactIdImmutable = contact.contactId
-                    if (contactIdImmutable != null) {
-                        contactIds += contactIdImmutable
-                    }
-                }
-
-                if (myContext != null) {
-                    var contactsService = ContactsService(myContext)
-                    log(
-                        "This is the log: myContactId => " + contactsService.getRawContactIdByContactId(
-                            contactIds
-                        ).toString()
-                    )
-                }
+                navigateToConfirmationFragment(it as ArrayList<MyContacts>)
             } else {
                 Toast.makeText(context, "No Contacts were Selected", Toast.LENGTH_SHORT).show()
             }
@@ -138,13 +127,17 @@ class HomeFragment : Fragment() {
             val list = KontactPicker.getSelectedKontacts(data)  //ArrayList<MyContacts>
 
             if (list != null && list.size > 0) {
-                val action = HomeFragmentDirections.actionNavHomeToConfirmationFragment(
-                    list.toTypedArray(),
-                    isRevertFormat
-                )
-                findNavController().navigate(action)
+                navigateToConfirmationFragment(list)
             }
         }
+    }
+
+    private fun navigateToConfirmationFragment(list: ArrayList<MyContacts>) {
+        val action = HomeFragmentDirections.actionNavHomeToConfirmationFragment(
+            list.toTypedArray(),
+            isRevertFormat
+        )
+        findNavController().navigate(action)
     }
 
     override fun onRequestPermissionsResult(

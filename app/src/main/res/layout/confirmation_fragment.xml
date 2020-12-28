@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.confirmation.ConfirmationFragment">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -47,8 +47,9 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
+                    android:fontFamily="@font/roboto"
                     android:gravity="center"
-                    android:text="You have Selected:"
+                    android:text="@string/you_have_selected"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -63,25 +64,27 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
+                    android:fontFamily="@font/roboto"
                     android:gravity="center"
-                    android:text="5"
                     android:textSize="30sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/successTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/successTitle"
+                    tools:text="5" />
 
                 <TextView
                     android:id="@+id/contactsText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
                     android:gravity="center"
-                    android:text="Contacts"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/numberOfSelectedContactsText" />
+                    app:layout_constraintTop_toBottomOf="@+id/numberOfSelectedContactsText"
+                    tools:text="Contacts" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -89,6 +92,7 @@
 
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -126,10 +130,11 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="0dp"
-                        android:text="WARNING!"
+                        android:text="@string/warning"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintTop_toBottomOf="@+id/contactsText" />
+                        app:layout_constraintTop_toBottomOf="@+id/contactsText"
+                        tools:text="5" />
                 </LinearLayout>
 
 
@@ -138,11 +143,49 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
-                    android:text="Selected contacts will be migrated to the new format. i.e. 01 XXX XXX will be transformed to 21 XXX XXX."
-                    app:layout_constraintTop_toBottomOf="@+id/contactsText" />
+                    app:layout_constraintTop_toBottomOf="@+id/contactsText"
+                    tools:text="Selected contacts will be migrated to the new format. i.e. 01 XXX XXX will be transformed to 21 XXX XXX." />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/animationGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="google_contacts_lottie.json"
+            app:lottie_loop="true" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="@string/migration_in_progress"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/animation_view"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -155,8 +198,9 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:contentDescription="Transform Contacts to Selected Format"
-        android:text="Finish"
+        android:contentDescription="@string/transform_contacts_to_selected_format"
+        android:fontFamily="@font/roboto"
+        android:text="@string/finish"
         app:icon="@drawable/ic_baseline_done_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
