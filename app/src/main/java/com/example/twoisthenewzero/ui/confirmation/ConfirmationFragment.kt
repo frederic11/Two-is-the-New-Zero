@@ -16,6 +16,9 @@ import com.deepakkumardk.kontactpickerlib.util.log
 import com.deepakkumardk.kontactpickerlib.util.show
 import com.example.twoisthenewzero.R
 import com.example.twoisthenewzero.databinding.ConfirmationFragmentBinding
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 
 class ConfirmationFragment : Fragment() {
 
@@ -25,6 +28,7 @@ class ConfirmationFragment : Fragment() {
 
     private lateinit var viewModel: ConfirmationViewModel
     val args: ConfirmationFragmentArgs by navArgs()
+    lateinit var mAdView : AdView
 
     private var _binding: ConfirmationFragmentBinding? = null
 
@@ -49,10 +53,15 @@ class ConfirmationFragment : Fragment() {
                 findNavController().navigate(action)
             }
         }
-        return return binding.root
+        MobileAds.initialize(requireContext()) {}
+        mAdView = _binding!!.adView
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+
+        return binding.root
     }
 
-    fun showLoadingUI(){
+    private fun showLoadingUI(){
         _binding!!.mainView.hide()
         _binding!!.successExtendedFab.hide()
         _binding!!.animationGroup.show()
@@ -68,7 +77,6 @@ class ConfirmationFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         val viewModelFactory = ConfirmationViewModelFactory(args.listOfSelectedContacts, args.isRevertFormat, requireNotNull(this.activity).application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ConfirmationViewModel::class.java)
-        // TODO: Use the ViewModel
 
         viewModel.isWorkDone.observe(viewLifecycleOwner, Observer {
             if(it){
@@ -91,15 +99,15 @@ class ConfirmationFragment : Fragment() {
         if (viewModel.mListOfSelectedContacts.any()) {
             _binding!!.numberOfSelectedContactsText.text = viewModel.mListOfSelectedContacts.size.toString()
             if (viewModel.mListOfSelectedContacts.size > 1) {
-                _binding!!.contactsText.text = "Contacts"
+                _binding!!.contactsText.text = getString(R.string.contacts)
             } else {
-                _binding!!.contactsText.text = "Contact"
+                _binding!!.contactsText.text = getString(R.string.contact)
             }
 
             if (args.isRevertFormat){
-                binding!!.infoText.text = getString(R.string.warning_description_to_old_format)
+                binding.infoText.text = getString(R.string.warning_description_to_old_format)
             } else {
-                binding!!.infoText.text = getString(R.string.warning_description_to_new_format)
+                binding.infoText.text = getString(R.string.warning_description_to_new_format)
             }
 
         } else {

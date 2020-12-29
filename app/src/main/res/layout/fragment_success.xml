@@ -50,7 +50,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:gravity="center"
-                    android:text="Success!"
+                    android:text="@string/successTitle"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +66,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:gravity="center"
-                    android:text="You have Successfully migrated your contacts."
+                    android:text="@string/success_description"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -86,8 +86,8 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:contentDescription="Open Contacts App"
-        android:text="Open Contacts"
+        android:contentDescription="@string/open_contacts_app"
+        android:text="@string/open_contacts"
         app:icon="@drawable/ic_baseline_contacts_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

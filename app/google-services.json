@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "915016139914",
+    "project_id": "two-is-the-new-zero",
+    "storage_bucket": "two-is-the-new-zero.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915016139914:android:35801252c7b823c2aa9973",
+        "android_client_info": {
+          "package_name": "com.frederictech.twoisthenewzero"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915016139914-iju2u75m3koe3joto2aj7klvu9qp7ing.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.frederictech.twoisthenewzero",
+            "certificate_hash": "6222800351f222c145b56bb791dfbf99f682f4d2"
+          }
+        },
+        {
+          "client_id": "915016139914-u95m2peork7ruc9cesgfbfbkn94kqm73.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkpbHuBR3CgDHVWPIMFJlRwoZGVxh3wSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "915016139914-u95m2peork7ruc9cesgfbfbkn94kqm73.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

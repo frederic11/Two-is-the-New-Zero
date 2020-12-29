@@ -36,7 +36,8 @@
                     android:src="@drawable/ic_undraw_contacts_selected_re_6k3g"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/success" />
 
                 <TextView
                     android:id="@+id/successTitle"
@@ -121,7 +122,8 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_warning_24" />
+                        android:src="@drawable/ic_baseline_warning_24"
+                        android:contentDescription="@string/warning" />
 
                     <TextView
                         android:id="@+id/warningText"
@@ -148,6 +150,19 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-2595899122565960/9410177893"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

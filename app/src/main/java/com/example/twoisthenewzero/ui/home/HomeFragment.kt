@@ -19,15 +19,18 @@ import com.deepakkumardk.kontactpickerlib.util.log
 import com.example.twoisthenewzero.R
 import com.example.twoisthenewzero.databinding.FragmentHomeBinding
 import com.example.twoisthenewzero.helper.ContactsService
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.snackbar.Snackbar
 
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
     private val selectPhoneNumber = 500
     private val writeContactPermissionCode = 550
     private var isRevertFormat = false
+    lateinit var mAdView : AdView
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -41,10 +44,14 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        MobileAds.initialize(requireContext()) {}
+
+        mAdView = _binding!!.adView
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
 
         _binding!!.homeExtendedFab.setOnClickListener {
             when (_binding!!.selectContactsRadioGroup.checkedRadioButtonId) {
@@ -67,7 +74,7 @@ class HomeFragment : Fragment() {
                 else -> {
                     view?.let { it1 ->
                         Snackbar.make(
-                            it1, "Please Select an Option",
+                            it1, getString(R.string.please_select_option),
                             Snackbar.LENGTH_SHORT
                         ).show()
                     }
@@ -98,7 +105,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    fun startContactPickerActivity() {
+    private fun startContactPickerActivity() {
         val item = KontactPickerItem().apply {
             imageMode = ImageMode.UserImageMode                      //Default is None
             selectionTickView = SelectionTickView.SmallView     //Default is SmallView
@@ -109,14 +116,14 @@ class HomeFragment : Fragment() {
         KontactPicker().startPickerForResult(this, item, selectPhoneNumber)  //RequestCode
     }
 
-    fun pickAllContacts() {
+    private fun pickAllContacts() {
         KontactPicker.getAllKontactsWithUri(this.activity) {
             //Handle the contactList : MutableList<MyContacts>
             // Handle this list
             if (it.any()) {
                 navigateToConfirmationFragment(it as ArrayList<MyContacts>)
             } else {
-                Toast.makeText(context, "No Contacts were Selected", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.no_contacts_selected), Toast.LENGTH_SHORT).show()
             }
         }
     }

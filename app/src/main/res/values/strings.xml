@@ -2,7 +2,7 @@
     <string name="app_name">Two is The New Zero</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">Two is The New Zero</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -11,7 +11,6 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="choose_option_home">What Would you Like to do?</string>
     <string name="choose_specific_contacts_to_migrate">Choose Specific Contacts to Migrate to the New Format.\nFor Example, Selected Phone Numbers will be migrated from 01-XXX XXX to 21-XXX XXX.</string>
     <string name="migrate_all_contacts">Migrate All Contacts to the New Format.\nFor Example, All Phone Numbers will be migrated from 01-XXX XXX to 21-XXX XXX.</string>
@@ -26,4 +25,25 @@
     <string name="migration_in_progress">Migration in Progress…</string>
     <string name="transform_contacts_to_selected_format">Transform Contacts to Selected Format</string>
     <string name="finish">Finish</string>
+    <string name="contact">Contact</string>
+    <string name="contacts">Contacts</string>
+    <string name="please_select_option">Please Select an Option</string>
+    <string name="no_contacts_selected">No Contacts were Selected</string>
+    <string name="successTitle">Success!</string>
+    <string name="success_description">You have Successfully migrated your contacts.</string>
+    <string name="open_contacts_app">Open Contacts App</string>
+    <string name="open_contacts">Open Contacts</string>
+    <string name="error_title">Error!</string>
+    <string name="something_went_wrong">Hmmm…Something went wrong and the developers have been notified about it! Please try again.</string>
+    <string name="review">Review</string>
+    <string name="success">Success</string>
+    <string name="failure">Error</string>
+    <string name="about">About</string>
+    <string name="about_text">The Lebanese Government and Ogero have decided to switch 01 to 21, 04 to 24, 05 to 25, 06 to 26, and so on. This app will help you migrate your contacts to the new format, and replace the 0 by 2.\n\nThis app is ad Supported, and all revenue generated from ads will be donated to SOS Children\'s Village.</string>
+    <string name="visit_sos_website">Visit SOS Children\'s Village Website</string>
+    <string name="about_panel">About Panel</string>
+    <string name="frederictech_text">I\'m the developer behind \"Two is the new Zero\" app. I\'m a Certified Scrum Master, a Software Development Consultant, and a technology enthusiast. My main expertise is in Azure Cloud Computing, .Net Framework, Google Firebase, and React JS. Thank you for using this application.</string>
+    <string name="visit_frederictech_website">Visit FredericTech Website</string>
+    <string name="frederictech">Hey! I\'m Frederic</string>
+    <string name="all_ads_revenue_will_be_donated_to_sos_children_s_village">*All ads revenue will be donated to SOS Children\'s Village.</string>
 </resources>

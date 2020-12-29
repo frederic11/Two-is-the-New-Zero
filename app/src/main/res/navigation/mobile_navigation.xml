@@ -16,20 +16,15 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.twoisthenewzero.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_about"
+        android:name="com.example.twoisthenewzero.ui.about.AboutFragment"
+        android:label="@string/about"
+        tools:layout="@layout/fragment_about" />
 
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.twoisthenewzero.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/confirmationFragment"
         android:name="com.example.twoisthenewzero.ui.confirmation.ConfirmationFragment"
-        android:label="Review"
+        android:label="@string/review"
         tools:layout="@layout/confirmation_fragment">
         <argument
             android:name="listOfSelectedContacts"
@@ -52,11 +47,11 @@
     <fragment
         android:id="@+id/successFragment"
         android:name="com.example.twoisthenewzero.ui.success.SuccessFragment"
-        android:label="Success"
+        android:label="@string/success"
         tools:layout="@layout/fragment_success" />
     <fragment
         android:id="@+id/failureFragment"
         android:name="com.example.twoisthenewzero.ui.failure.FailureFragment"
-        android:label="Error"
+        android:label="@string/failure"
         tools:layout="@layout/fragment_failure" />
 </navigation>

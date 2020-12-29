@@ -40,9 +40,9 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@android:color/darker_gray"/>
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/darker_gray" />
 
             <RadioButton
                 android:id="@+id/chooseSpecificContactRadioButton"
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="8dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
 
             <RadioButton
                 android:id="@+id/selectAllContactRadioButton"
@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="8dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
 
             <RadioButton
                 android:id="@+id/chooseSpecificContactToRevertRadioButton"
@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="8dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
 
             <RadioButton
                 android:id="@+id/selectAllContactToRevertRadioButton"
@@ -98,8 +98,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="8dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
         </RadioGroup>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-2595899122565960/7042023095"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/selectContactsRadioGroup" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/all_ads_revenue_will_be_donated_to_sos_children_s_village"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

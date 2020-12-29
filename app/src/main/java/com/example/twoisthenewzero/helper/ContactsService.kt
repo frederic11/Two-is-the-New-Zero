@@ -15,12 +15,11 @@ class ContactsService(
     private val context: Context
 ) {
 
+    //This Function gets you the individual Phone number IDs for each contact by contact ID
     fun getRawContactIdByContactId(
         contactIds: List<String>
     ): HashMap<Long, String> {
         val contentResolver: ContentResolver = context.contentResolver
-
-        // Query raw_contacts table by display name field ( given_name family_name ) to get raw contact id.
 
         var conditionalInStatement = StringBuffer()
         for (contactId in contactIds) {
@@ -32,7 +31,6 @@ class ContactsService(
             ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " IN (" + conditionalInStatement.removeSuffix(
                 ","
             ) + ")"
-        //"and " + ContactsContract.CommonDataKinds.Phone.DATA + " = '" + phoneNumber + "'"
 
         // Query raw contact id through RawContacts uri.
         val rawContactUri: Uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
@@ -49,8 +47,6 @@ class ContactsService(
             if (queryResultCount > 0) {
                 // Move to the first row in the result cursor.
                 cursor.moveToFirst()
-
-                // Get raw_contact_id.
 
                 if (cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER)) != null)
                     contactInfo[cursor.getLong(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID))] =
@@ -70,7 +66,6 @@ class ContactsService(
 
     /*
      * Update contact phone number by contactId.
-     * Return update contact number, commonly there should has one contact be updated.
      */
     fun updateContactPhoneById(
         contactInfo: HashMap<Long, String>,
@@ -87,7 +82,6 @@ class ContactsService(
         }
     }
 
-    /* Update phone number with raw contact id and phone type.*/
     private fun updatePhoneNumber(
         contentResolver: ContentResolver,
         rawContactId: Long,
@@ -104,11 +98,9 @@ class ContactsService(
                 return
             }
 
-        // Create content values object.
         val contentValues = ContentValues()
 
         // Put new phone number value.
-        //contentValues.put(ContactsContract.CommonDataKinds.Phone.NUMBER, newPhoneNumber)
         contentValues.put(ContactsContract.Data.DATA1, newPhoneNumber)
         contentValues.put(
             ContactsContract.Data.MIMETYPE,

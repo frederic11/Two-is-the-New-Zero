@@ -36,7 +36,8 @@
                     android:src="@drawable/ic_undraw_fixing_bugs_w7gi"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/error_title" />
 
                 <TextView
                     android:id="@+id/failureTitle"
@@ -48,7 +49,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:gravity="center"
-                    android:text="Error!"
+                    android:text="@string/error_title"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +65,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:gravity="center"
-                    android:text="Hmmm...Something went wrong and the developers have been notified about it! Please try again."
+                    android:text="@string/something_went_wrong"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

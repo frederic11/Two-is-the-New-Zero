@@ -16,7 +16,6 @@ class ConfirmationViewModel(
     isRevertFormat: Boolean,
     private val application: Application
 ) : ViewModel() {
-    // TODO: Implement the ViewModel
     var mListOfSelectedContacts = listOfContacts
     var mIsRevertFormat = isRevertFormat
 
@@ -47,7 +46,10 @@ class ConfirmationViewModel(
     private suspend fun migrateContactsAsync() = withContext(Dispatchers.Default) {
         // Handle this list
         _isWorkDone.postValue(false)
+
+        //This is to avoid flashing effects in the UI when showing the migration animation
         Thread.sleep(3_000)
+
         if (listOfContacts.any()) {
             try {
                 val contactIds = mutableListOf<String>()
