@@ -81,3 +81,6 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+app/release/device-2020-12-29-203048.png
+app/release/device-2020-12-29-203151.png
+app/release/device-2020-12-29-203211.png
