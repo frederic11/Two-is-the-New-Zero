@@ -17,6 +17,8 @@ You can also revert migrated numbers to the old format which starts with 0, in c
 
 This application is ad supported, and all ads revenue will be donated to [SOS Children's Village](https://www.sos.org.lb/).
 
+#### [Donwload from Play Store](https://play.google.com/store/apps/details?id=com.frederictech.twoisthenewzero)
+
 ### Screenshots:
 <p>
 <img src="https://frederictech.com/HomePage.png" width="250">
